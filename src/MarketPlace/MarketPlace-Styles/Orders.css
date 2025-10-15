@@ -1,0 +1,169 @@
+.page-content {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: sans-serif;
+  position: relative;
+}
+
+.orders-container {
+  width: 100%;
+  font-family: sans-serif;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-top: 20%;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-banner {
+  font-size: 24px;
+  color: green;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  transition: 2s;
+}
+
+.order-grid {
+  width: 95%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0%;
+}
+
+/* Heading */
+.orders-container h2 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 40px;
+  text-align: center;
+  background-color: white;
+  padding-top: 20px;
+  z-index: 10;
+  margin: 0;
+}
+
+/* No orders message */
+.orders-container .no-orders {
+  text-align: center;
+  font-size: 30px;
+  margin: 0%;
+  padding: 0%;
+  font-style: italic;
+  color: #555;
+}
+
+/* Order card */
+/* Limit order card height and allow scrolling for items */
+.order-card {
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #444;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  max-height: auto; /* adjust as needed */
+  overflow: hidden; /* prevent card overflow */
+  width: 99%;
+}
+
+.order-card h3 {
+  margin: 0%;
+  font-size: 26px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: orange;
+}
+
+.order-card .date {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .customer {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .customer-contact {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .farmer {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+/* Make the items list scrollable */
+.order-card ul {
+  list-style: none;
+  border-radius: 10px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  font-size: 20px;
+  overflow-y: auto;
+  flex-grow: 1; /* fill remaining space in card */
+}
+
+/* Individual list items */
+.order-card li {
+  font-style: italic;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+/* Optional: smooth scroll for long lists */
+.order-card ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.order-card ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Keep total at the bottom of the card */
+.order-card .total {
+  font-weight: bold;
+  font-size: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  display: flex;
+  justify-content: space-between;
+}

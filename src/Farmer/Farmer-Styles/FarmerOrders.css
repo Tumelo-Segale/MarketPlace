@@ -1,0 +1,142 @@
+.farmer-orders-container {
+  width: 100%;
+  height: auto;
+  margin-top: 50px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.farmer-orders-container h2 {
+  width: 100%;
+  background-color: white;
+  margin: 0%;
+  padding-top: 20px;
+  font-size: 30px;
+  position: fixed;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.order-grid {
+  padding-bottom: 70px;
+}
+
+.order-card {
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #666;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  max-height: auto; /* adjust as needed */
+  overflow: hidden; /* prevent card overflow */
+  width: 99%;
+}
+
+.no-orders {
+  color: #666;
+  font-size: 30px;
+  font-style: italic;
+  margin: 0%;
+  padding: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-no {
+  margin: 0%;
+  padding: 0%;
+}
+
+.order-card .date {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .customer {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .customer-contact {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-card .customer-message {
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 22px;
+  margin: 0%;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.order-card .total strong {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+}
+
+.status-complete {
+  margin-left: 10px;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 28px;
+  color: green;
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  justify-content: start;
+}
+
+.status-pending {
+  margin-left: 10px;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 28px;
+  color: orange;
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  justify-content: start;
+}
+
+.complete-order-btn {
+  width: auto;
+  font-size: 24px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}

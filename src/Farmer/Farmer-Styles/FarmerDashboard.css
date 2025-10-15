@@ -1,0 +1,96 @@
+.farmer-main-page {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+}
+
+.farmer-title {
+  width: 100%;
+  background-color: white;
+  margin: 0%;
+  padding-top: 20px;
+  font-size: 30px;
+  position: fixed;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  display: flex;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.farmer-dashboard-container {
+  max-width: 700px;
+  margin: 0px;
+  background: white;
+  padding: 0px;
+  padding-top: 0%;
+}
+
+.farmer-greeting {
+  text-align: center;
+  font-size: 24px;
+  margin: 0%;
+  padding: 0%;
+  text-transform: uppercase;
+}
+
+.farmer-stats-card {
+  background-color: white;
+  border: 2px solid #666;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 0%;
+}
+
+.farmer-stats-card h3 {
+  text-align: center;
+  margin-top: 0%;
+  margin-bottom: 10px;
+  color: orange;
+  font-size: 28px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat-box {
+  background: #ffeed3;
+  border: 1px solid orange;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-weight: bold;
+  color: black;
+  font-size: 20px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: orange;
+}
+
+.farmer-main-page img {
+  position: fixed;
+  bottom: 90px;
+  left: 10px;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  width: 100px;
+  height: 100px;
+  width: auto;
+}
