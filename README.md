@@ -100,4 +100,4 @@
      npm install
 6. Start the development Server:
    ```bash
-     npm start OR npm run dev
+     npm run dev
