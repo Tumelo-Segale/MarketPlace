@@ -12,10 +12,7 @@
   - [Farmer Flow](#farmer-flow)  
   - [Admin Flow](#admin-flow)  
 - [Technologies Used](#technologies-used)  
-- [Setup & Installation](#setup--installation)  
-- [Screenshots](#screenshots)  
-- [License](#license)  
-
+- [Setup & Installation](#setup--installation)
 ---
 
 ## Features
