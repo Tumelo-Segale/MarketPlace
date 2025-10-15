@@ -95,9 +95,12 @@
 1. Clone the repository:  
    ```bash
    git clone https://github.com/Tumelo-Segale/cropcart.git
-   2. Navigate to the project directory:
+2. Navigate to the project directory:
+   ```bash
      cd cropcart
-   3. Install dependencies:
+4. Install dependencies:
+   ```bash
      npm install
-   4. Start the development Server:
+6. Start the development Server:
+   ```bash
      npm start OR npm run dev
