@@ -84,9 +84,9 @@
 
 ## Technologies Used
 - **Frontend:** React.js, CSS  
-- **Backend:** Node.js / PHP (if used)  
-- **Database:** LocalStorage (or your database choice)  
-- **Payment Gateway:** PayFast  
+- **Backend:** None for now
+- **Database:** LocalStorage  
+- **Payment Gateway:** PayFast Sandox to simulate payments 
 
 ---
 
@@ -94,4 +94,10 @@
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/cropcart.git
+   git clone https://github.com/Tumelo-Segale/cropcart.git
+   2. Navigate to the project directory:
+     cd cropcart
+   3. Install dependencies:
+     npm install
+   4. Start the development Server:
+     npm start OR npm run dev
