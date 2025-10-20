@@ -167,3 +167,14 @@
   display: flex;
   justify-content: space-between;
 }
+
+.order-card .pickup-pin {
+  font-size: 24px;
+  margin: 0%;
+  padding: 0%;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  background-color: orange;
+  border-radius: 10px;
+}
