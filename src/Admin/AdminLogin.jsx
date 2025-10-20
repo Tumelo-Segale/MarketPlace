@@ -8,7 +8,7 @@ export default function AdminLogin() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const correctPin = "886356";
+    const correctPin = "123456";
 
     // Only allow digits and limit to 6
     const handleChange = (e) => {
