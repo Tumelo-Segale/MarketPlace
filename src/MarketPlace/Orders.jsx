@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./MarketPlace-Styles/Orders.css";
 
-// Utility to generate 4-digit PIN
-const generatePin = () => Math.floor(1000 + Math.random() * 9000);
+// Generate a unique 4-digit PIN
+const generateUniquePin = (existingOrders) => {
+  let pin;
+  do {
+    pin = Math.floor(1000 + Math.random() * 9000); // Random 4-digit
+  } while (existingOrders.some((order) => order.pin === pin));
+  return pin;
+};
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -16,22 +22,25 @@ export default function Orders() {
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     setOrders([...savedOrders].reverse());
 
-    // Check for PayFast success from URL
+    // Check for PayFast success
     const params = new URLSearchParams(location.search);
     if (params.get("paymentSuccess") === "true") {
       const lastOrder = savedOrders[savedOrders.length - 1];
-      
-      // Generate PIN for last order if it doesn't exist
+
       if (lastOrder && !lastOrder.pin) {
-        lastOrder.pin = generatePin();
+        // ✅ Generate a unique 4-digit PIN
+        const pin = generateUniquePin(savedOrders);
+        lastOrder.pin = pin;
         lastOrder.completed = false;
+
+        // Save the updated orders list
         savedOrders[savedOrders.length - 1] = lastOrder;
         localStorage.setItem("orders", JSON.stringify(savedOrders));
-      }
 
-      setLatestPin(lastOrder?.pin);
-      setShowBanner(true);
-      setTimeout(() => setShowBanner(false), 5000);
+        setLatestPin(pin);
+        setShowBanner(true);
+        setTimeout(() => setShowBanner(false), 5000);
+      }
     }
   }, [location]);
 
@@ -39,7 +48,8 @@ export default function Orders() {
     <div className="orders-container">
       {showBanner && latestPin && (
         <div className="success-banner">
-          Payment Successful!
+          Payment Successful! <br />
+          <strong>Your pickup PIN: {latestPin}</strong>
         </div>
       )}
 
@@ -90,10 +100,15 @@ export default function Orders() {
                 </p>
 
                 <p className="pickup-pin">
-                  <strong>PIN:</strong> {order.pin}
+                  <strong>PIN:</strong> {order.pin || "—"}
                 </p>
-                <p className={order.completed ? "status-complete" : "status-pending"}>
-                  {order.completed ? " Completed" : " Pending"}
+
+                <p
+                  className={
+                    order.completed ? "status-complete" : "status-pending"
+                  }
+                >
+                  {order.completed ? "Completed" : "Pending"}
                 </p>
               </div>
             );

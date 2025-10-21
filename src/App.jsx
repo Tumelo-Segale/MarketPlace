@@ -15,7 +15,6 @@ import FarmerDashboard from './Farmer/FarmerDashboard';
 import FarmerNavbar from './components/FarmerNavbar';
 import FarmerProfile from './Farmer/FarmerProfile';
 
-import AdminLogin from './Admin/AdminLogin';
 import FarmerAddProducts from './Farmer/FarmerAddProducts';
 import FarmerOrders from './Farmer/FarmerOrders';
 import FarmerProducts from './Farmer/FarmerProducts';
@@ -64,7 +63,6 @@ export default function App() {
           <Route path="/" element={<LandingPage/>}/>
 
           {/* Pages with Logo */}
-          <Route path="/AdminLogin" element={<AdminLogin/>}/>
           <Route path="/FarmerRegistration" element={<FarmerRegistration/>}/>
           <Route path="/FarmerLogin" element={<FarmerLogin/>}/>
 

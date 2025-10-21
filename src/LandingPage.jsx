@@ -17,9 +17,6 @@ export default function LandingPage() {
                     <div className="Buttons">
                         <NavLink to={"/FarmerRegistration"}><button>I'm a Farmer</button></NavLink>
                     </div>
-                    <div className="Buttons">
-                        <NavLink to={"/AdminLogin"}><button>Administrator</button></NavLink>
-                    </div>
                 </div>
             </div>
         </>

@@ -96,3 +96,86 @@ button:hover {
   color: #444;
   cursor: not-allowed;
 }
+
+/* TERMS & CONDITIONS POPUP */
+.terms-overlay {
+  position: fixed;
+  font-family: sans-serif;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.terms-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  width: 90%;
+  font-size: 20px;
+  margin: 10px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.terms-modal h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.terms-content {
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.agree-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.agree-checkbox input {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  background-color: orange;
+  color: black;
+}
+
+.terms-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.active-btn {
+  background: orange;
+  color: black;
+  cursor: pointer;
+}
+
+.disabled-btn {
+  background: grey;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
