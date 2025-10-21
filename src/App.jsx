@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './LandingPage';
 
 import MarketPlace from './MarketPlace/MarketPlace';
@@ -24,34 +24,43 @@ import AdminNavbar from './components/AdminNavbar';
 import AdminOrders from './Admin/AdminOrders';
 import AdminFarmers from './Admin/AdminFarmers';
 
-//Layouts with navbar only
-function MarketPlaceLayout({children}){
-  return(
+// Protected Route Components
+const ProtectedFarmerRoute = ({ children }) => {
+  const activeFarmer = localStorage.getItem('activeFarmer');
+  return activeFarmer ? children : <Navigate to="/FarmerLogin" />;
+};
+
+const ProtectedAdminRoute = ({ children }) => {
+  const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn');
+  return isAdminLoggedIn ? children : <Navigate to="/FarmerLogin" />;
+};
+
+// Layouts with navbar only
+function MarketPlaceLayout({ children }) {
+  return (
     <>
-      <MarketPlaceNavbar/>
+      <MarketPlaceNavbar />
       <div className="page-content">{children}</div>
     </>
-  )
+  );
 }
 
-//Layouts with navbar only
-function FarmerLayout({children}){
-  return(
+function FarmerLayout({ children }) {
+  return (
     <>
-      <FarmerNavbar/>
+      <FarmerNavbar />
       <div className="page-content">{children}</div>
     </>
-  )
+  );
 }
 
-//Layouts with navbar only
-function AdminLayout({children}){
-  return(
+function AdminLayout({ children }) {
+  return (
     <>
-      <AdminNavbar/>
+      <AdminNavbar />
       <div className="page-content">{children}</div>
     </>
-  )
+  );
 }
 
 export default function App() {
@@ -60,55 +69,140 @@ export default function App() {
       <Router>
         <Routes>
           {/* Pages without navbar */}
-          <Route path="/" element={<LandingPage/>}/>
+          <Route path="/" element={<LandingPage />} />
 
-          {/* Pages with Logo */}
-          <Route path="/FarmerRegistration" element={<FarmerRegistration/>}/>
-          <Route path="/FarmerLogin" element={<FarmerLogin/>}/>
+          {/* Authentication Pages without navbar */}
+          <Route path="/FarmerRegistration" element={<FarmerRegistration />} />
+          <Route path="/FarmerLogin" element={<FarmerLogin />} />
 
-          {/* MarketPlace Main Page with navbar*/}
-          <Route path='/MarketPlace' element={
-            <>
-              <MarketPlace/>
-              <MarketPlaceNavbar/>
-            </>
-          }/>
-
-          {/* FarmerDashboard with navbar */}
-          <Route path='/FarmerDashboard' element={
-            <>
-              <FarmerDashboard/>
-              <FarmerNavbar/>
-            </>
-          }/>
-
-          {/* AdminDashboard with navbar */}
-          <Route path='/AdminDashboard' element={
-            <>
-              <AdminDashboard/>
-              <AdminNavbar/>
-            </>
-          }/>
-
-          {/* MarketPlace SubPages with navbar */}
-          <Route path="/Orders" element={<MarketPlaceLayout> <Orders/> </MarketPlaceLayout>}/>
-          <Route path="/Help" element={<MarketPlaceLayout> <Help/> </MarketPlaceLayout>}/>
+          {/* MarketPlace Pages with navbar layout */}
+          <Route path="/MarketPlace" element={
+            <MarketPlaceLayout>
+              <MarketPlace />
+            </MarketPlaceLayout>
+          } />
+          
+          <Route path="/Orders" element={
+            <MarketPlaceLayout>
+              <Orders />
+            </MarketPlaceLayout>
+          } />
+          
+          <Route path="/Help" element={
+            <MarketPlaceLayout>
+              <Help />
+            </MarketPlaceLayout>
+          } />
 
           {/* MarketPlace Pages without navbar */}
-          <Route path="/Checkout" element={<Checkout/>}/>
+          <Route path="/Checkout" element={<Checkout />} />
 
-          {/* Farmer SubPages with navbar */}
-          <Route path="/FarmerProfile" element={<FarmerLayout> <FarmerProfile/> </FarmerLayout>}/>
-          <Route path="/FarmerAddProducts" element={<FarmerLayout> <FarmerAddProducts/> </FarmerLayout>}/>
-          <Route path="/FarmerProducts" element={<FarmerLayout> <FarmerProducts/> </FarmerLayout>}/>
-          <Route path="/FarmerOrders" element={<FarmerLayout> <FarmerOrders/> </FarmerLayout>}/>
+          {/* Farmer Dashboard with navbar - PROTECTED ROUTE */}
+          <Route path="/FarmerDashboard/:farmName" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerDashboard />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
 
-          {/* Admin SubPages with navbar */}
-          <Route path="/AdminOrders" element={<AdminLayout> <AdminOrders/> </AdminLayout>}/>
-          <Route path="/AdminFarmers" element={<AdminLayout> <AdminFarmers/> </AdminLayout>}/>
+          {/* Add this route alongside your existing dashboard route */}
+          <Route path="/FarmerDashboard" element={
+              <ProtectedFarmerRoute>
+                  <FarmerLayout>
+                      <FarmerDashboard />
+                  </FarmerLayout>
+              </ProtectedFarmerRoute>
+          } />
 
+          {/* Farmer SubPages with navbar - PROTECTED ROUTES */}
+          <Route path="/FarmerProfile" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerProfile />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+          
+          <Route path="/FarmerAddProducts" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerAddProducts />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+          
+          <Route path="/FarmerProducts" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerProducts />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+          
+          <Route path="/FarmerOrders" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerOrders />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+
+          {/* Farmer SubPages with dynamic farmName parameter */}
+          <Route path="/FarmerAddProducts/:farmName" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerAddProducts />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+          
+          <Route path="/FarmerOrders/:farmName" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerOrders />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+          
+          <Route path="/FarmerProducts/:farmName" element={
+            <ProtectedFarmerRoute>
+              <FarmerLayout>
+                <FarmerProducts />
+              </FarmerLayout>
+            </ProtectedFarmerRoute>
+          } />
+
+          {/* Admin Dashboard with navbar - PROTECTED ROUTE */}
+          <Route path="/AdminDashboard" element={
+            <ProtectedAdminRoute>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </ProtectedAdminRoute>
+          } />
+
+          {/* Admin SubPages with navbar - PROTECTED ROUTES */}
+          <Route path="/AdminOrders" element={
+            <ProtectedAdminRoute>
+              <AdminLayout>
+                <AdminOrders />
+              </AdminLayout>
+            </ProtectedAdminRoute>
+          } />
+          
+          <Route path="/AdminFarmers" element={
+            <ProtectedAdminRoute>
+              <AdminLayout>
+                <AdminFarmers />
+              </AdminLayout>
+            </ProtectedAdminRoute>
+          } />
+
+          {/* Catch all route - redirect to home */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     </>
-  )
+  );
 }

@@ -8,7 +8,8 @@ export default function FarmerOrders() {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [enteredPin, setEnteredPin] = useState("");
 
-  useEffect(() => {
+  // Fetch orders function
+  const fetchOrders = () => {
     const storedFarmName = localStorage.getItem("farmName");
     if (storedFarmName) setFarmName(storedFarmName);
 
@@ -18,6 +19,35 @@ export default function FarmerOrders() {
     );
 
     setOrders([...farmerOrders].reverse());
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  // Real-time updates setup
+  useEffect(() => {
+    // Listen for order updates
+    const handleOrderUpdate = () => {
+      console.log("FarmerOrders: Order update received - refreshing orders");
+      fetchOrders();
+    };
+
+    // Listen for storage changes
+    const handleStorageChange = (e) => {
+      if (e.key === "orders") {
+        console.log("FarmerOrders: Storage change detected - refreshing orders");
+        fetchOrders();
+      }
+    };
+
+    window.addEventListener("orderUpdated", handleOrderUpdate);
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("orderUpdated", handleOrderUpdate);
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const openPinModal = (orderId) => {
@@ -49,6 +79,10 @@ export default function FarmerOrders() {
           .filter((o) => o.items?.some((i) => i.farmer === farmName))
           .reverse()
       );
+      
+      // Dispatch orderUpdated event for real-time updates ✅
+      window.dispatchEvent(new Event("orderUpdated"));
+      
       closePinModal();
       alert("Order completed successfully!");
     } else {

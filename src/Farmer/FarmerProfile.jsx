@@ -50,7 +50,7 @@ export default function FarmerProfile() {
     };
 
     if (!farmer) {
-        return <p style={{ textAlign: "center" }}>No farmer profile found.</p>;
+        return <p style={{ textAlign: "center" }} className="no-farmer">No farmer profile found.</p>;
     }
 
     return (

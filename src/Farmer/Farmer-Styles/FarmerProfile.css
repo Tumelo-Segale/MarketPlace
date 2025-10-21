@@ -1,3 +1,14 @@
+.no-farmer {
+  color: #666;
+  font-size: 30px;
+  font-style: italic;
+  margin: 0%;
+  padding: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .farmer-profile-container {
   width: 100%;
   height: auto;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./Farmer-Styles/FarmerAddProducts.css";
 
 export default function FarmerAddProducts() {
@@ -18,45 +19,80 @@ export default function FarmerAddProducts() {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImage(reader.result); // Base64 string
-            setPreview(reader.result); // preview works
-        };
-        reader.readAsDataURL(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImage(reader.result); // Base64 string
+                setPreview(reader.result); // preview works
+            };
+            reader.readAsDataURL(file);
         }
     };
 
-    const handleSaveProduct = (e) => {
+    const handleSaveProduct = async (e) => {
         e.preventDefault();
 
         if (!productName || !price || !category || !image) {
-        alert("Please fill in all fields and upload an image.");
-        return;
+            alert("Please fill in all fields and upload an image.");
+            return;
         }
 
+        // Create product object (same structure as before)
         const newProduct = {
-        id: Date.now(),
-        name: productName,
-        price: parseFloat(price),
-        category,
-        image, // store Base64 string
-        farmer: farmName,
-        dateAdded: new Date().toISOString(),
+            id: Date.now(),
+            name: productName,
+            price: parseFloat(price),
+            category,
+            image, // store Base64 string
+            farmer: farmName,
+            dateAdded: new Date().toISOString(),
         };
 
-        const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
-        const updatedProducts = [...savedProducts, newProduct];
-        localStorage.setItem("products", JSON.stringify(updatedProducts));
+        try {
+            // Try to save to backend
+            const response = await axios.post("http://localhost:5000/api/products/add", {
+                farmerName: farmName,
+                productName: productName,
+                price: parseFloat(price),
+                category: category,
+                image: image
+            });
 
-        alert(`Product "${productName}" added successfully!`);
-        setProductName("");
-        setPrice("");
-        setCategory("Vegetable");
-        setImage(null);
-        setPreview(null);
+            if (response.data.success) {
+                // Also save to localStorage for consistency
+                const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
+                const updatedProducts = [...savedProducts, newProduct];
+                localStorage.setItem("products", JSON.stringify(updatedProducts));
 
-        window.dispatchEvent(new Event("storage"));
+                alert(`Product "${productName}" added successfully!`);
+                setProductName("");
+                setPrice("");
+                setCategory("Vegetable");
+                setImage(null);
+                setPreview(null);
+
+                // Dispatch both events for real-time updates
+                window.dispatchEvent(new Event("storage"));
+                window.dispatchEvent(new Event("productUpdated")); // ✅ REAL-TIME UPDATE TRIGGER
+            }
+        } catch (error) {
+            console.error("Backend save failed, using localStorage:", error);
+            
+            // Fallback to localStorage only
+            const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
+            const updatedProducts = [...savedProducts, newProduct];
+            localStorage.setItem("products", JSON.stringify(updatedProducts));
+
+            alert(`Product "${productName}" added successfully!`);
+            setProductName("");
+            setPrice("");
+            setCategory("Vegetable");
+            setImage(null);
+            setPreview(null);
+
+            // Dispatch both events for real-time updates
+            window.dispatchEvent(new Event("storage"));
+            window.dispatchEvent(new Event("productUpdated")); // ✅ REAL-TIME UPDATE TRIGGER
+        }
     };
 
     return (
